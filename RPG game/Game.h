@@ -32,6 +32,7 @@ public:
 	void pauseMenu();
 	void displayMap();
 	void displayTown();
+	void displayGame();
 
 	void newGame(); //Creates a new game
 	

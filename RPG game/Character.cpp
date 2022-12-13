@@ -357,7 +357,7 @@ void Character::combat(Enemy& enemy, Character& player, Location& home) {
 						enemy.setEnemyHp(atkEnemy);
 						std::cout << "You attacked " << enemy.getEnemyName() << " for " << player.getPPhysDmg() << "Hp!\n";
 					}
-					else {//TO DO. add to check if its been 2 turns before using another heavy atk.
+					else if (atkchoice == 'h') {//TO DO. add to check if its been 2 turns before using another heavy atk.
 						atkEnemy = enemy.getEnemyHp() - (m_pphysdmg * 1.50);
 						enemy.setEnemyHp(atkEnemy);
 						std::cout << "You attacked " << enemy.getEnemyName() << " for " << (player.getPPhysDmg() * 1.50) << "Hp!\n";

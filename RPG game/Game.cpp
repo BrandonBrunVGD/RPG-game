@@ -14,6 +14,28 @@ Game::~Game() {
 
 }
 
+void Game::displayGame() {
+	std::cout << "\n|  [][][] [] []    [] [][][] []                          |\n";
+	std::cout << "|  []        [][]  [] []  [] []         SO COOL!         |\n";
+	std::cout << "|  [][][] [] []  [][] [][][] []                          |\n";
+	std::cout << "|  []     [] []    [] []  [] []                          |\n";
+	std::cout << "|  []     [] []    [] []  [] [][][][]                    |\n";
+	std::cout << "|      [][][] [][][] [][][] []     [][][] [][][] [][][]  |\n";
+	std::cout << "|      []  [] []  [] []  [] []     []     []       []    |\n";
+	std::cout << "|      [][][] [][]   []  [] []     [][][] []       []    |\n";
+	std::cout << "|      []     []  [] []  [] []  [] []     []       []    |\n";
+	std::cout << "|      []     []  [] [][][] [][][] [][][] [][][]   []    |\n\n\n";
+	std::cout << "\t\t   PUSH 'S' TO START\n";
+	char start;
+	do {
+		std::cin >> start;
+		if (start == 's') {
+			mainMenu();
+		}
+		else { std::cout << "Invalid input\n"; }
+	} while (start != 's');
+}
+
 void Game::mainMenu() {
 	int choice;
 
@@ -91,7 +113,7 @@ void Game::settings() {
 	std::cout << "------------------------------------------------------------------------------------------------------------\n";
 	std::cout << "Settings\n";
 	std::cout << "1. Difficulty.\n";
-	std::cout << "0. Main Menu.\n";
+	std::cout << "0. Back.\n";
 	std::cin >> choice;
 
 	do {
@@ -100,14 +122,12 @@ void Game::settings() {
 			difficultyMenu();
 			break;
 		case 0:
-			mainMenu();
 			break;
 		default:
 			std::cout << "Invalid Input.\n";
 			break;
 		}
 	} while (choice != 0);
-	std::cout << "Going back to Main Menu...\n";
 }
 //sets the difficulty for the playthrough. does litteraly nothing :D
 void Game::difficultyMenu() {
@@ -150,7 +170,6 @@ void Game::difficultyMenu() {
 				choice = 0;
 			}
 		} while (choice != 0);
-	
 }
 
 void Game::pauseMenu() {
