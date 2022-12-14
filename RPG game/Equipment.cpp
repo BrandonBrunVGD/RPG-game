@@ -12,6 +12,8 @@ Equipment::Equipment() {
 	m_equiped = false;
 	m_equipable = false;
 	m_usable = false;
+	m_magic = false;
+	m_physical = false;
 	m_type = "";
 }
 Equipment::~Equipment() {

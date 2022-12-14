@@ -22,6 +22,7 @@ void Merchant::merchant(Character& player, std::vector<Equipment>& inventory, st
 	ironSword.setEquipmentValue(50);
 	ironSword.setEquipable(true);
 	ironSword.setEquiped(false);
+	ironSword.setIsPhysical(true);
 	merchantInventory.push_back(ironSword);
 
 	Equipment battleAxe;
@@ -32,6 +33,7 @@ void Merchant::merchant(Character& player, std::vector<Equipment>& inventory, st
 	battleAxe.setEquipmentValue(50);
 	battleAxe.setEquipable(true);
 	battleAxe.setEquiped(false);
+	battleAxe.setIsPhysical(true);
 	merchantInventory.push_back(battleAxe);
 
 	Equipment staff;
@@ -42,6 +44,7 @@ void Merchant::merchant(Character& player, std::vector<Equipment>& inventory, st
 	staff.setEquipmentValue(50);
 	staff.setEquipable(true);
 	staff.setEquiped(false);
+	staff.setIsMagic(true);
 	merchantInventory.push_back(staff);
 
 	Equipment wand;
@@ -52,6 +55,7 @@ void Merchant::merchant(Character& player, std::vector<Equipment>& inventory, st
 	wand.setEquipmentValue(50);
 	wand.setEquipable(true);
 	wand.setEquiped(false);
+	wand.setIsMagic(true);
 	merchantInventory.push_back(wand);
 
 	Equipment ironHelmet;
@@ -88,10 +92,11 @@ void Merchant::merchant(Character& player, std::vector<Equipment>& inventory, st
 	redObsidionSword.setEquipmentName("Red Obsidion Sword");
 	redObsidionSword.setType("Weapon");
 	redObsidionSword.setDescription("A Firey Red Sword Forged In The Heart Of A Valcano.\n");
-	redObsidionSword.setEquipmentPhys(200);
+	redObsidionSword.setEquipmentMag(200);
 	redObsidionSword.setEquipmentValue(3000);
 	redObsidionSword.setEquipable(true);
 	redObsidionSword.setEquiped(false);
+	redObsidionSword.setIsMagic(true);
 	merchantInventory.push_back(redObsidionSword);
 
 	Equipment healthPotion;

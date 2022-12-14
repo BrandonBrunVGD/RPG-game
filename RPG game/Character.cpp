@@ -7,8 +7,8 @@ Character::Character() {
 	m_pclass = "";
 	m_porigin = "";
 
-	m_php = 10;
-	m_pmaxhp = 10;
+	m_php = 100;
+	m_pmaxhp = 100;
 	m_plevel = 1;
 	m_pmaxLevel = 20;
 	m_pexp = 0;
@@ -29,8 +29,8 @@ Character::Character() {
 	m_pintelligence = 0;
 	m_pcharisma = 0;
 
-	m_pcoins = 10000;
-	m_pskillpoints = 5;
+	m_pcoins = 100;
+	m_pskillpoints = 0;
 	m_inCombat = false;
 	m_ableToFlee = true;
 }
@@ -53,6 +53,7 @@ void Character::newCharacter(Character& player) {
 	brokenSword.setEquipable(true);
 	brokenSword.setEquiped(true);
 	brokenSword.equipFunc(player);
+	brokenSword.setIsPhysical(true);
 	equipedWeapon.push_back(brokenSword);
 
 	Equipment healthPotion;
@@ -323,7 +324,8 @@ void Character::displayAllStats() {
 	std::cout << "Equiped ChestPlate: " << equipedChest[0].getEquipmentName() << "\t| Defence: " << equipedChest[0].getEquipmentDef() << "\n";
 	std::cout << "Equiped Greaves: " << equipedGreaves[0].getEquipmentName() << "\t| Defence: " << equipedGreaves[0].getEquipmentDef() << "\n\n";
 
-	std::cout << "Total Damage Output: " << m_pphysdmg << "\t | (Physical Damage + Weapon Damage + 10x Player Level)\n\n";
+	std::cout << "Total Physical Damage Output: " << m_pphysdmg << "\t | (Physical Damage + Weapon Damage + 10x Player Level)\n";
+	std::cout << "Total Magical Damage Output: " << m_pmagdmg << "\t\t | (Magical Damage + Weapon Damage + 10x Player Level)\n\n";
 
 	displayClassStats();
 }
@@ -334,8 +336,13 @@ void Character::combat(Enemy& enemy, Character& player, Location& home) {
 	int choice;
 	bool endTurn;
 	bool endCombat = false;
+	int attack;
 
 		do {
+
+			if (equipedWeapon[0].getIsPhysical() == true) { attack = m_pphysdmg; }
+			if (equipedWeapon[0].getIsMagic() == true) { attack = m_pmagdmg; }
+
 			endTurn = false;
 			std::cout << "------------------------------------------------------------------------------------------------------------\n";
 			std::cout << "[You]\t\t\t\t[" << enemy.getEnemyName() << "]\n";
@@ -350,23 +357,24 @@ void Character::combat(Enemy& enemy, Character& player, Location& home) {
 				char atkchoice;
 				do { //attacks the enemy for the players physical damage times a light or heavy attack
 					int atkEnemy;
-					std::cout << "[l] light attack (" << m_pphysdmg << " Damage)\n[h] heavy attack (" << m_pphysdmg * 1.5 << " Damage)\n\n";
+					std::cout << "[l] light attack (" << attack << " Damage)\n[h] heavy attack (" << attack * 1.5 << " Damage)\n\n";
 					std::cin >> atkchoice;
 					if (atkchoice == 'l') {
-						atkEnemy = (enemy.getEnemyHp() - m_pphysdmg);
+						atkEnemy = (enemy.getEnemyHp() - attack);
 						enemy.setEnemyHp(atkEnemy);
-						std::cout << "You attacked " << enemy.getEnemyName() << " for " << player.getPPhysDmg() << "Hp!\n";
+						std::cout << "You attacked " << enemy.getEnemyName() << " for " << attack << "Hp!\n";
 					}
 					else if (atkchoice == 'h') {//TO DO. add to check if its been 2 turns before using another heavy atk.
-						atkEnemy = enemy.getEnemyHp() - (m_pphysdmg * 1.50);
+						atkEnemy = enemy.getEnemyHp() - (attack * 1.50);
 						enemy.setEnemyHp(atkEnemy);
-						std::cout << "You attacked " << enemy.getEnemyName() << " for " << (player.getPPhysDmg() * 1.50) << "Hp!\n";
+						std::cout << "You attacked " << enemy.getEnemyName() << " for " << (attack * 1.50) << "Hp!\n";
 					}
 				} while (atkchoice != 'l' && atkchoice != 'h');
 				endTurn = true;
 				break;
 
 			case 2: Inventory(player, playerInventory, equipedWeapon, equipedHelmet, equipedChest, equipedGreaves);
+				
 				break;
 
 			case 3:

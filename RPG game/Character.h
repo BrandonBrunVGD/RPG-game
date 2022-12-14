@@ -44,6 +44,7 @@ protected:
 	int m_pskillpoints;
 	bool m_inCombat;
 	bool m_ableToFlee;
+	
 
 public:
 

@@ -54,6 +54,7 @@ void Location::locWishingWell(Character& player, std::vector<Equipment>& invento
 				goldSword.setEquipmentPhys(50);
 				goldSword.setEquipable(true);
 				goldSword.setEquiped(false);
+				goldSword.setIsPhysical(true);
 				inventory.push_back(goldSword);
 
 				std::cout << "\nThe Golden Sword of Why was added to your inventory!\n\n";
@@ -130,9 +131,10 @@ void Location::locDungeon(Character& player, Location& home, std::vector<Equipme
 					deadOgre.setEnemyHeavy(40);
 					deadOgre.setEnemyCoins(30);
 					player.combat(deadOgre, player, home);
-				} {endDungeon = true; }
+				} 
+				else {endDungeon = true; }
 
-				if (endDungeon != true) {
+				if (endDungeon == false) {
 					std::cout << "You have defeated all the horrible monsters whose years of being encapsuled have taken their toll.\n";
 					std::cout << "You stand before a sarcophagus belonging to a powerful leader whom once rulled over these lands.\n";
 					char openchest;
@@ -188,37 +190,43 @@ void Location::locDungeon(Character& player, Location& home, std::vector<Equipme
 				std::cout << "Inside an enormous serpent with dark grey scales and blood red eyes slithers behind you faster then you can blink\n";
 				std::cout << "slamming the door shut and pushes you towards the other end of the room with your back towards the wall.\n";
 				std::cout << "There is only one thing you can do. Fight for your life.\n";
-				Enemy bossSerpant;
-				bossSerpant.setEnemyName("Black Cobra, Warden Of The Dead");
-				bossSerpant.setEnemyLevel(player.getPLevel());
-				bossSerpant.setEnemylight(30);
-				bossSerpant.setEnemyHeavy(50);
-				bossSerpant.setEnemyHp(200);
-				bossSerpant.setEnemyMaxHp(200);
-				bossSerpant.setEnemyCoins(2000);
-				player.combat(bossSerpant, player, home);
-				if (player.getPHp() <= 0) { endDungeon = true; }
 
-				std::cout << "\nAgainst all odds you have defeated the warden of the dead and may live to see another day.\n";
-				std::cout << "You are rewarded with The Abysal Serpant Sword.\n";
+				
+					Enemy bossSerpant;
+					bossSerpant.setEnemyName("Black Cobra, Warden Of The Dead");
+					bossSerpant.setEnemyLevel(player.getPLevel());
+					bossSerpant.setEnemylight(30);
+					bossSerpant.setEnemyHeavy(50);
+					bossSerpant.setEnemyHp(200);
+					bossSerpant.setEnemyMaxHp(200);
+					bossSerpant.setEnemyCoins(2000);
+					player.combat(bossSerpant, player, home);
+				
 
-				Equipment snakeSword;
-				snakeSword.setEquipmentName("The Abysal Serpant Sword");
-				snakeSword.setType("Weapon");
-				snakeSword.setDescription("A Black Sword Forged From The Scales Of The Black Cobra, Warden of the dead.\n");
-				snakeSword.setEquipmentPhys(100);
-				snakeSword.setItemsRequired(1);
-				snakeSword.setEquipable(true);
-				snakeSword.setEquiped(false);
-				inventory.push_back(snakeSword);
+				if (player.getPHp() > 0) {
+					std::cout << "\nAgainst all odds you have defeated the warden of the dead and may live to see another day.\n";
+					std::cout << "You are rewarded with The Abysal Serpant Sword.\n";
 
-				std::cout << "\nThe Abysal Serpant Sword was addad to your inventory.\n";
+					Equipment snakeSword;
+					snakeSword.setEquipmentName("The Abysal Serpant Sword");
+					snakeSword.setType("Weapon");
+					snakeSword.setDescription("A Black Sword Forged From The Scales Of The Black Cobra, Warden of the dead.\n");
+					snakeSword.setEquipmentPhys(100);
+					snakeSword.setItemsRequired(1);
+					snakeSword.setEquipable(true);
+					snakeSword.setEquiped(false);
+					snakeSword.setIsPhysical(true);
+					inventory.push_back(snakeSword);
 
-				std::cout << "\nYou enter a small trap door hidden under where the serpent layed leading to a cave.\n";
-				std::cout << "Seeing the light of day from afar you leave the cave into the forest that you know well.\n";
-				std::cout << "You head for home and rest for your adventure was exciting and your loot was plentyfull.\n";
-				player.setAbleToFlee(true);
-				endDungeon = true;
+					std::cout << "\nThe Abysal Serpant Sword was addad to your inventory.\n";
+
+					std::cout << "\nYou enter a small trap door hidden under where the serpent layed leading to a cave.\n";
+					std::cout << "Seeing the light of day from afar you leave the cave into the forest that you know well.\n";
+					std::cout << "You head for home and rest for your adventure was exciting and your loot was plentyfull.\n";
+					player.setAbleToFlee(true);
+					endDungeon = true;
+				}
+				else { endDungeon = true; }
 			}
 			else if (openDoor == 'n') {
 				std::cout << "You ignore the giant door and carry on past into a hall evenly distributed with slow burning torches.\n";
@@ -231,6 +239,7 @@ void Location::locDungeon(Character& player, Location& home, std::vector<Equipme
 		}
 	}while (endDungeon != true);
 
+	player.setPHp(player.getPMaxHp());
 	home.locHome(player);
 }
 //does litteraly nothing

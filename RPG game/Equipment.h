@@ -16,6 +16,8 @@ private:
 	bool m_equiped;
 	bool m_equipable;
 	bool m_usable;
+	bool m_magic;
+	bool m_physical;
 	std::string m_type;
 	std::string m_description;
 
@@ -36,6 +38,8 @@ public:
 	int getEquipmentDef() { return m_Edefence; }
 	std::string getType() { return m_type; }
 	std::string getDescription() { return m_description; }
+	bool getIsPhysical() { return m_physical; }
+	bool getIsMagic() { return m_magic; }
 
 	void setEquipmentName(std::string name) { m_name = name; }
 	void setEquipmentPhys(int phys) { m_Ephysdmg = phys; }
@@ -48,5 +52,7 @@ public:
 	void setItemsRequired(int items) { m_itemsrequired = items; }
 	void setType(std::string type) { m_type = type; }
 	void setDescription(std::string description) { m_description = description; }
+	void setIsPhysical(bool isphys) { m_physical = isphys; }
+	void setIsMagic(bool ismag) { m_magic = ismag; }
 };
 
